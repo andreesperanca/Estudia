@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Estudia</string>
+    <string name="study">Estudando</string>
+    <string name="pause">Pausa</string>
+    <string name="channelDescription">Descrição do canal.</string>
+
+
+    <string name="egg_notification_channel_id" translatable="false">egg_channel</string>
+    <string name="egg_notification_channel_name" translatable="true">Egg</string>
+    <string name="theTimeIsOver">O tempo acabou!</string>
+    <string name="notificationPauseDescription">Ok, faça uma pausa.</string>
+    <string name="notificationStudyDescription">A festa acabou, volte aos estudos.</string>
+
+</resources>
