@@ -11,14 +11,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.andreesperanca.estudia.ControlPanelViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.R
 import com.andreesperanca.estudia.data.ControlPanelScreenState
+import com.andreesperanca.estudia.navigation.Screen
 import com.andreesperanca.estudia.ui.components.CircularTimeIndicator
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 
@@ -26,6 +27,7 @@ import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 @Composable
 fun ControlPanelScreen(
     modifier: Modifier = Modifier,
+    navHostController: NavHostController,
     viewModel: ControlPanelViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -46,14 +48,15 @@ fun ControlPanelScreen(
                 stringResource(id = R.string.study)
             },
             configButtonClick = {
+                navHostController.navigate(Screen.Settings.route)
             },
             changeStateButtonClick = {
                 viewModel.changeState()
             },
             totalTime = if (uiState == ControlPanelScreenState.Pause) {
-                3L
+                300L
             } else {
-                5L
+                1800L
             },
             timeIsOver = {
                 viewModel.showNotification(state = uiState)
@@ -67,7 +70,8 @@ fun ControlPanelScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewControlPanel() {
+    val navController = rememberNavController()
     EstudiaTheme {
-        ControlPanelScreen()
+        ControlPanelScreen(navHostController = navController)
     }
 }

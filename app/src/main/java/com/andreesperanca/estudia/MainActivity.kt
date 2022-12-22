@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.navigation.SetupNavGraph
-import com.andreesperanca.estudia.ui.control.ControlPanelScreen
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 
 class MainActivity : ComponentActivity() {

@@ -10,5 +10,11 @@
     <string name="theTimeIsOver">O tempo acabou!</string>
     <string name="notificationPauseDescription">Ok, faça uma pausa.</string>
     <string name="notificationStudyDescription">A festa acabou, volte aos estudos.</string>
+    <string name="notificationSettingDescription">Habilitará notificações quando ciclos forem finalizados.</string>
+    <string name="timerSettingDescription">O cronômetro iniciará automaticamente ciclos.</string>
+    <string name="minutes">Min</string>
+    <string name="notifications">Notificações</string>
+    <string name="pomodoro">Pomodoro</string>
+    <string name="timeSettings">"Definições de tempo  "</string>
 
 </resources>

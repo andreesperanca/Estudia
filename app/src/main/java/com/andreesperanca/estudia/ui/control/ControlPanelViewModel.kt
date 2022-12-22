@@ -1,9 +1,10 @@
-package com.andreesperanca.estudia
+package com.andreesperanca.estudia.ui.control
 
 import android.app.Application
 import android.app.NotificationManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import com.andreesperanca.estudia.R
 import com.andreesperanca.estudia.data.ControlPanelScreenState
 import com.andreesperanca.estudia.services.sendNotification
 import kotlinx.coroutines.flow.MutableStateFlow
