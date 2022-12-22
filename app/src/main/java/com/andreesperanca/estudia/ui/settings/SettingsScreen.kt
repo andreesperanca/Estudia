@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -18,17 +20,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.andreesperanca.estudia.R
-import com.andreesperanca.estudia.data.UserPreferences
 import com.andreesperanca.estudia.services.DataStorePreferences
 import com.andreesperanca.estudia.ui.components.SettingsItem
 import com.andreesperanca.estudia.ui.components.SettingsTimerItem
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen() {
 
+    val verticalScrollState = rememberScrollState()
     // context
     val context = LocalContext.current
     //scope de coroutine para compose
@@ -37,12 +38,13 @@ fun SettingsScreen() {
     val datastore = DataStorePreferences(context)
 
     val pomodoroTime = datastore.getPomodoroTime.collectAsState(0)
-
-
-
+    val shortBreakTime = datastore.getShortBreakTime.collectAsState(0)
+    val longBreakTime = datastore.getLongBreakTime.collectAsState(0)
+    val notificationsPreference = datastore.getNotificationPreference.collectAsState(false)
+    val automaticIndicatorPreference =
+        datastore.getAutomaticIndicatorPreference.collectAsState(false)
 
     Surface(color = MaterialTheme.colors.background) {
-
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -67,17 +69,33 @@ fun SettingsScreen() {
             },
             content = {
                 Column(
+                    modifier = Modifier.verticalScroll(verticalScrollState),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     SettingsItem(
                         modifier = Modifier,
                         settingTitle = "Notificações",
-                        settingDescription = stringResource(id = R.string.notificationSettingDescription)
+                        settingDescription = stringResource(id = R.string.notificationSettingDescription),
+                        onClick = { notificationsPreference ->
+                            scope.launch {
+                                datastore.saveNotificationPreference(
+                                    notificationsPreference
+                                )
+                            }
+                        }, checked = notificationsPreference.value
                     )
                     SettingsItem(
                         settingTitle = "Cronômetro",
-                        settingDescription = stringResource(id = R.string.timerSettingDescription)
+                        settingDescription = stringResource(id = R.string.timerSettingDescription),
+                        onClick = { automaticIndicatorPreference ->
+                            scope.launch {
+                                datastore.saveAutomaticIndicatorPreference(
+                                    automaticIndicatorPreference
+                                )
+                            }
+                        },
+                        checked = automaticIndicatorPreference.value
                     )
 
                     Text(
@@ -89,8 +107,8 @@ fun SettingsScreen() {
                         textAlign = TextAlign.Start
                     )
 
-
                     SettingsTimerItem(
+                        titleDuration = "Pomodoro",
                         duration = pomodoroTime.value!!,
                         addClick = { pomodoroTime ->
                             scope.launch {
@@ -106,21 +124,37 @@ fun SettingsScreen() {
                                 )
                             }
                         },
-                        titleDuration = "Pomodoro",
                     )
 
                     SettingsTimerItem(
-                        duration = 0,
+                        duration = shortBreakTime.value!!,
                         titleDuration = "Pausa curta",
-                        addClick = {},
-                        removeClick = {},
+                        addClick = { shortBreakTime ->
+                            scope.launch {
+                                datastore.saveShortBreakTime(shortBreakTime)
+                            }
+                        },
+                        removeClick = { shortBreakTime ->
+                            scope.launch {
+                                datastore.saveShortBreakTime(shortBreakTime)
+                            }
+                        },
                     )
 
                     SettingsTimerItem(
-                        duration = 0,
+                        duration = longBreakTime.value!!,
                         titleDuration = "Pausa longa",
-                        addClick = {},
-                        removeClick = {}
+                        addClick = { longBreakTime ->
+                            scope.launch {
+                                datastore.saveLongBreakTime(longBreakTime)
+                            }
+                        },
+                        removeClick = { longBreakTime ->
+                            scope.launch {
+                                datastore.saveLongBreakTime(longBreakTime)
+                            }
+
+                        }
                     )
                 }
             }
@@ -135,5 +169,4 @@ fun PreviewSettingsScreen() {
     EstudiaTheme {
         SettingsScreen()
     }
-
 }

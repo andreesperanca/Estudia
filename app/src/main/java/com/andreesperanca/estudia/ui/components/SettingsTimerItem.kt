@@ -52,14 +52,16 @@ fun SettingsTimerItem(
 
             IconButton(
                 onClick = {
-                    durationCycle = duration
-                    durationCycle++
-                    addClick(durationCycle)
+                    if(duration > 1) {
+                        durationCycle = duration
+                        durationCycle--
+                        removeClick(durationCycle)
+                    }
                 },
-                modifier = Modifier.padding(start = 32.dp)
+                modifier = Modifier.padding(end = 32.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
+                    painter = painterResource(id = R.drawable.ic_minus),
                     contentDescription = "adicionar 1 minuto",
                     tint = Color.White
                 )
@@ -73,16 +75,14 @@ fun SettingsTimerItem(
 
             IconButton(
                 onClick = {
-                    if(duration > 1) {
-                        durationCycle = duration
-                        durationCycle--
-                        removeClick(durationCycle)
-                    }
+                    durationCycle = duration
+                    durationCycle++
+                    addClick(durationCycle)
                 },
-                modifier = Modifier.padding(end = 32.dp)
+                modifier = Modifier.padding(start = 32.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_minus),
+                    imageVector = Icons.Default.Add,
                     contentDescription = "adicionar 1 minuto",
                     tint = Color.White
                 )

@@ -24,7 +24,9 @@ import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 
 @Composable
 fun SettingsItem(
-    modifier: Modifier = Modifier, settingTitle: String, settingDescription: String = ""
+    modifier: Modifier = Modifier, settingTitle: String, settingDescription: String = "",
+    onClick: (value: Boolean) -> Unit,
+    checked: Boolean
 ) {
     Row(
         modifier = modifier
@@ -57,9 +59,10 @@ fun SettingsItem(
             .width(52.dp)
             .height(100.dp)
             .background(MaterialTheme.colors.primary),
-            checked = option,
+            checked = checked,
             onCheckedChange = { newValue ->
                 option = newValue
+                onClick(newValue)
             })
     }
 }
@@ -71,7 +74,9 @@ fun PreviewSettingsConfiguration() {
     EstudiaTheme {
         SettingsItem(
             settingTitle = stringResource(id = R.string.notifications),
-            settingDescription = stringResource(id = R.string.notificationSettingDescription)
+            settingDescription = stringResource(id = R.string.notificationSettingDescription),
+            onClick = {},
+            checked = false
         )
     }
 }
