@@ -9,8 +9,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,8 +22,10 @@ import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.R
 import com.andreesperanca.estudia.data.ControlPanelScreenState
 import com.andreesperanca.estudia.navigation.Screen
+import com.andreesperanca.estudia.services.DataStorePreferences
 import com.andreesperanca.estudia.ui.components.CircularTimeIndicator
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
+import com.andreesperanca.estudia.util.converterTimeForCircularIndicator
 
 
 @Composable
@@ -31,6 +35,16 @@ fun ControlPanelScreen(
     viewModel: ControlPanelViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    val context = LocalContext.current
+    val datastore = DataStorePreferences(context)
+
+    val pomodoroTime = datastore.getPomodoroTime.collectAsState(0)
+    val shortBreakTime = datastore.getShortBreakTime.collectAsState(0)
+    val longBreakTime = datastore.getLongBreakTime.collectAsState(0)
+    val notificationsPreference = datastore.getNotificationPreference.collectAsState(false)
+    val automaticIndicatorPreference =
+        datastore.getAutomaticIndicatorPreference.collectAsState(false)
 
     Column(
         modifier = modifier
@@ -57,9 +71,15 @@ fun ControlPanelScreen(
             },
             totalTime =
             when (uiState) {
-                ControlPanelScreenState.ShortPause -> { 1L }
-                ControlPanelScreenState.Study -> { 1L }
-                ControlPanelScreenState.LongPause -> { 1L }
+                ControlPanelScreenState.ShortPause -> {
+                    shortBreakTime.value!!.converterTimeForCircularIndicator()
+                }
+                ControlPanelScreenState.Study -> {
+                    pomodoroTime.value!!.converterTimeForCircularIndicator()
+                }
+                ControlPanelScreenState.LongPause -> {
+                    longBreakTime.value!!.converterTimeForCircularIndicator()
+                }
             }
             ,
             timeIsOver = {

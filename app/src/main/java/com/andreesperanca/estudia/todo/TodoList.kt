@@ -11,10 +11,8 @@ package com.andreesperanca.estudia.todo
  *  28/12/2022
  *****************************************************************
  * feat: create new state -> Long Break State ["x"]
- * Add initial value for dataStore preferences; ["x"]
-
-
- * feat: Add proto datastore with preferences object;
+ * Add initial value for dataStore preferences ["x"]
+ * feat: synchronize datastore values with app  ["x"]
  *****************************************************************
 
  *****************************************************************

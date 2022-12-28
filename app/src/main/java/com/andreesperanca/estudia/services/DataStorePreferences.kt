@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.andreesperanca.estudia.util.converterMinutes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -25,22 +26,22 @@ class DataStorePreferences(private val context: Context) {
     private val DEFAULT_POMODORO_TIME = 1800L
     private val DEFAULT_SHORT_BREAK_TIME = 300L
     private val DEFAULT_LONG_BREAK_TIME = 900L
-    private val DEFAULT_NOTIFICATION_PREFENCE = true
+    private val DEFAULT_NOTIFICATION_PREFERENCE = true
     private val DEFAULT_AUTOMATIC_CIRCULAR_INDICATOR = true
 
     val getPomodoroTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_POMODORO_TIME_PREFERENCE] ?: DEFAULT_POMODORO_TIME
+        preferences[USER_POMODORO_TIME_PREFERENCE] ?: DEFAULT_POMODORO_TIME.converterMinutes()
     }
     val getShortBreakTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_SHORT_BREAK_TIME_PREFERENCE] ?: DEFAULT_SHORT_BREAK_TIME
+        preferences[USER_SHORT_BREAK_TIME_PREFERENCE] ?: DEFAULT_SHORT_BREAK_TIME.converterMinutes()
     }
 
     val getLongBreakTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_LONG_BREAK_TIME_PREFERENCE] ?: DEFAULT_LONG_BREAK_TIME
+        preferences[USER_LONG_BREAK_TIME_PREFERENCE] ?: DEFAULT_LONG_BREAK_TIME.converterMinutes()
     }
 
     val getNotificationPreference: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[USER_NOTIFICATIONS_PREFERENCE] ?: DEFAULT_NOTIFICATION_PREFENCE
+        preferences[USER_NOTIFICATIONS_PREFERENCE] ?: DEFAULT_NOTIFICATION_PREFERENCE
     }
 
     val getAutomaticIndicatorPreference: Flow<Boolean> = context.dataStore.data.map { preferences ->
