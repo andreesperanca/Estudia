@@ -79,11 +79,14 @@ fun ControlPanelScreen(
                 ControlPanelScreenState.LongPause -> {
                     longBreakTime.value!!.converterTimeForCircularIndicator()
                 }
-            }
-            ,
+            },
             timeIsOver = {
-                viewModel.showNotification(state = uiState)
-            }
+                if (notificationsPreference.value) {
+                    viewModel.showNotification(state = uiState)
+                }
+                viewModel.autoChangeState()
+            },
+            automaticPreference = automaticIndicatorPreference.value,
         )
     }
 

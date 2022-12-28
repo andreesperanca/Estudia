@@ -75,7 +75,6 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
         } else {
             showPauseNotification(notificationManager)
         }
-        autoChangeState()
     }
 
     fun showStudyNotification(notificationManager: NotificationManager) {

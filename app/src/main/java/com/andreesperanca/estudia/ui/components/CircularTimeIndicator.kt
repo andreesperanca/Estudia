@@ -55,8 +55,8 @@ fun CircularTimeIndicator(
     changeStateButtonClick: () -> Unit,
 
     /** Time is over */
-    timeIsOver: () -> Unit
-
+    timeIsOver: () -> Unit,
+    automaticPreference: Boolean
 ) {
     var value by remember {
         mutableStateOf(0f)
@@ -75,9 +75,11 @@ fun CircularTimeIndicator(
             if (currentTime > totalTime) {
                 currentTime = 0f
                 isTimerRunning = false
-                /** CALL NEXT STAGE IF IN PREFERENCES USER AUTOMATIC CIRCULAR INDICATOR IS ON */
                 timeIsOver()
                 value = 0f
+                if (automaticPreference) {
+                    isTimerRunning = true
+                }
             }
             delay(1000)
             currentTime += 1f
@@ -230,7 +232,8 @@ fun PreviewCircularTimeIndicator() {
             totalTime = 100,
             configButtonClick = {},
             changeStateButtonClick = {},
-            timeIsOver = {}
+            timeIsOver = {},
+            automaticPreference = true
         )
     }
 }
