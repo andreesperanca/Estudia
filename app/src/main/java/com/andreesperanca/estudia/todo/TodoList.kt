@@ -12,14 +12,19 @@ package com.andreesperanca.estudia.todo
  *****************************************************************
  * feat: create new state -> Long Break State ["x"]
  * Add initial value for dataStore preferences ["x"]
- * feat: synchronize datastore values with app  ["x"]
+ * feat: synchronize times datastore values with app  ["x"]
+ * fix: bug change state click in circular indicator ["x"]
+ * fix: bug seconds for circular time indicator  ["x"]
+
+
+ * feat: synchronize booleans datastore values with app
  *****************************************************************
 
  *****************************************************************
  * Finish Step -->
- * feat: make accessibility app                             ...
- * feat: configuration app for several tips screens formats ...
- * feat: tests and perform                                  ...
+ * feat: make accessibility app
+ * feat: configuration app for several tips screens formats
+ * feat: tests and perform
  ******************************************************************
  *
  * */

@@ -2,7 +2,6 @@ package com.andreesperanca.estudia.ui.control
 
 import android.app.Application
 import android.app.NotificationManager
-import android.service.controls.Control
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import com.andreesperanca.estudia.R
@@ -25,7 +24,7 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
     /** TIME VALUES **/
 
 
-    fun changeState() {
+    fun autoChangeState() {
         when (_uiState.value) {
             ControlPanelScreenState.Study -> {
                 if (_countPomodoro == 4) {
@@ -40,6 +39,20 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
                 _uiState.value = ControlPanelScreenState.Study
             }
             else -> {
+                _uiState.value = ControlPanelScreenState.Study
+            }
+        }
+    }
+
+    fun manualChangeState() {
+        when (_uiState.value) {
+            ControlPanelScreenState.Study -> {
+                _uiState.value = ControlPanelScreenState.ShortPause
+            }
+            ControlPanelScreenState.ShortPause -> {
+                _uiState.value = ControlPanelScreenState.LongPause
+            }
+            ControlPanelScreenState.LongPause -> {
                 _uiState.value = ControlPanelScreenState.Study
             }
         }
@@ -62,7 +75,7 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
         } else {
             showPauseNotification(notificationManager)
         }
-        changeState()
+        autoChangeState()
     }
 
     fun showStudyNotification(notificationManager: NotificationManager) {

@@ -1,5 +1,8 @@
 package com.andreesperanca.estudia.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -59,8 +62,6 @@ fun CircularTimeIndicator(
         mutableStateOf(0f)
     }
 
-
-    // create variable for current time
     var currentTime by remember {
         mutableStateOf(0f)
     }
@@ -68,8 +69,6 @@ fun CircularTimeIndicator(
     var isTimerRunning by remember {
         mutableStateOf(false)
     }
-
-
 
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
         if (isTimerRunning) {
@@ -80,11 +79,17 @@ fun CircularTimeIndicator(
                 timeIsOver()
                 value = 0f
             }
-            delay(100)
-            currentTime += 0.1f
-            value = currentTime / totalTime.toFloat()
+            delay(1000)
+            currentTime += 1f
+            value = currentTime / totalTime
         }
     }
+
+    val sweepAngle by animateFloatAsState(
+        targetValue = value,
+        animationSpec = tween(1000)
+    )
+
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -101,7 +106,7 @@ fun CircularTimeIndicator(
                         indicatorStrokeWith = backgroundIndicatorStrokeWidth
                     )
                     foregroundIndicator(
-                        sweepAngle = (value * 360),
+                        sweepAngle = (sweepAngle * 360),
                         componentSize = componentSize,
                         indicatorColor = foregroundIndicatorColor,
                         indicatorStrokeWith = foregroundIndicatorStrokeWidth
@@ -133,7 +138,12 @@ fun CircularTimeIndicator(
             } else {
                 painterResource(id = R.drawable.ic_play)
             },
-            changeStateButtonClick = { changeStateButtonClick() },
+            changeStateButtonClick = {
+                value = 0f
+                currentTime = 0f
+                isTimerRunning = false
+                changeStateButtonClick()
+            },
             configButtonClick = { configButtonClick() }
         )
     }
@@ -245,6 +255,7 @@ fun timeConverter(time: Long): String {
 
     return "$minutesString:$secondsString"
 }
+
 
 
 
