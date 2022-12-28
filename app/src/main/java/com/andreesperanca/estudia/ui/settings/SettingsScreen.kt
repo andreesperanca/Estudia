@@ -19,7 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.R
+import com.andreesperanca.estudia.navigation.Screen
 import com.andreesperanca.estudia.services.DataStorePreferences
 import com.andreesperanca.estudia.ui.components.SettingsItem
 import com.andreesperanca.estudia.ui.components.SettingsTimerItem
@@ -27,7 +30,9 @@ import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    navHostController: NavHostController
+) {
 
     val verticalScrollState = rememberScrollState()
     // context
@@ -57,7 +62,9 @@ fun SettingsScreen() {
                         )
                     },
                     navigationIcon = {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = {
+                            navHostController.popBackStack()
+                        }) {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = null,
@@ -167,6 +174,6 @@ fun SettingsScreen() {
 @Composable
 fun PreviewSettingsScreen() {
     EstudiaTheme {
-        SettingsScreen()
+        SettingsScreen(navHostController = rememberNavController())
     }
 }

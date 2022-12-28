@@ -15,6 +15,7 @@ package com.andreesperanca.estudia.todo
  * feat: synchronize times datastore values with app  ["x"]
  * fix: bug change state click in circular indicator ["x"]
  * fix: bug seconds for circular time indicator  ["x"]
+ * feat: add navigation click in settings screen ["x"]
 
 
  * feat: synchronize booleans datastore values with app
