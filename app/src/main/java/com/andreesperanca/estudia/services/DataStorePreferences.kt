@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.map
 
 class DataStorePreferences(private val context: Context) {
 
-
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
         val USER_POMODORO_TIME_PREFERENCE = longPreferencesKey("pomodoroTime")
@@ -22,24 +21,30 @@ class DataStorePreferences(private val context: Context) {
         val USER_AUTOMATIC_INDICATOR_PREFERENCE = booleanPreferencesKey("automaticPreference")
     }
 
-    val getPomodoroTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_POMODORO_TIME_PREFERENCE] ?: 0L
-    }
+    /** DEFAULTS VALUES */
+    private val DEFAULT_POMODORO_TIME = 1800L
+    private val DEFAULT_SHORT_BREAK_TIME = 300L
+    private val DEFAULT_LONG_BREAK_TIME = 900L
+    private val DEFAULT_NOTIFICATION_PREFENCE = true
+    private val DEFAULT_AUTOMATIC_CIRCULAR_INDICATOR = true
 
+    val getPomodoroTime: Flow<Long?> = context.dataStore.data.map { preferences ->
+        preferences[USER_POMODORO_TIME_PREFERENCE] ?: DEFAULT_POMODORO_TIME
+    }
     val getShortBreakTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_SHORT_BREAK_TIME_PREFERENCE] ?: 0L
+        preferences[USER_SHORT_BREAK_TIME_PREFERENCE] ?: DEFAULT_SHORT_BREAK_TIME
     }
 
     val getLongBreakTime: Flow<Long?> = context.dataStore.data.map { preferences ->
-        preferences[USER_LONG_BREAK_TIME_PREFERENCE] ?: 0L
+        preferences[USER_LONG_BREAK_TIME_PREFERENCE] ?: DEFAULT_LONG_BREAK_TIME
     }
 
     val getNotificationPreference: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[USER_NOTIFICATIONS_PREFERENCE] ?: true
+        preferences[USER_NOTIFICATIONS_PREFERENCE] ?: DEFAULT_NOTIFICATION_PREFENCE
     }
 
     val getAutomaticIndicatorPreference: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[USER_AUTOMATIC_INDICATOR_PREFERENCE] ?: true
+        preferences[USER_AUTOMATIC_INDICATOR_PREFERENCE] ?: DEFAULT_AUTOMATIC_CIRCULAR_INDICATOR
     }
 
 
