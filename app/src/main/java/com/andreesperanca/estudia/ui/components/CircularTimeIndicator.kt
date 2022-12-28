@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -56,10 +55,11 @@ fun CircularTimeIndicator(
     timeIsOver: () -> Unit
 
 ) {
-    // create variable for value
     var value by remember {
         mutableStateOf(0f)
     }
+
+
     // create variable for current time
     var currentTime by remember {
         mutableStateOf(0f)
@@ -69,12 +69,14 @@ fun CircularTimeIndicator(
         mutableStateOf(false)
     }
 
+
+
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
         if (isTimerRunning) {
             if (currentTime > totalTime) {
                 currentTime = 0f
                 isTimerRunning = false
-                /** Call next stage */
+                /** CALL NEXT STAGE IF IN PREFERENCES USER AUTOMATIC CIRCULAR INDICATOR IS ON */
                 timeIsOver()
                 value = 0f
             }
@@ -174,7 +176,7 @@ fun DrawScope.foregroundIndicator(
         useCenter = false,
         style = Stroke(
             width = indicatorStrokeWith,
-            cap = StrokeCap.Round
+            cap = StrokeCap.Butt
         ),
         topLeft = Offset(
             x = (size.width - componentSize.width) / 2f,

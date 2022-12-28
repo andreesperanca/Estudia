@@ -2,6 +2,7 @@ package com.andreesperanca.estudia.ui.control
 
 import android.app.Application
 import android.app.NotificationManager
+import android.service.controls.Control
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import com.andreesperanca.estudia.R
@@ -13,17 +14,42 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    private var _uiState = MutableStateFlow<ControlPanelScreenState>(ControlPanelScreenState.Pause)
+    private var _uiState =
+        MutableStateFlow<ControlPanelScreenState>(ControlPanelScreenState.ShortPause)
     val uiState: StateFlow<ControlPanelScreenState> = _uiState.asStateFlow()
 
+    private var _countPomodoro: Int = 0
+    val countPomodoro: Int
+        get() = _countPomodoro
+
+    /** TIME VALUES **/
+
+
     fun changeState() {
-        if (_uiState.value == ControlPanelScreenState.Pause) {
-            _uiState.value = ControlPanelScreenState.Study
-        } else {
-            _uiState.value = ControlPanelScreenState.Pause
+        when (_uiState.value) {
+            ControlPanelScreenState.Study -> {
+                if (_countPomodoro == 4) {
+                    _uiState.value = ControlPanelScreenState.LongPause
+                    pomodoroCounter()
+                } else {
+                    _countPomodoro++
+                    _uiState.value = ControlPanelScreenState.ShortPause
+                }
+            }
+            ControlPanelScreenState.ShortPause -> {
+                _uiState.value = ControlPanelScreenState.Study
+            }
+            else -> {
+                _uiState.value = ControlPanelScreenState.Study
+            }
         }
     }
 
+    fun pomodoroCounter() {
+        if (_countPomodoro >= 4) {
+            _countPomodoro = 0
+        }
+    }
 
     fun showNotification(state: ControlPanelScreenState) {
         val notificationManager = ContextCompat.getSystemService(
@@ -31,7 +57,7 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
             NotificationManager::class.java
         ) as NotificationManager
 
-        if (state == ControlPanelScreenState.Pause) {
+        if (state == ControlPanelScreenState.ShortPause) {
             showStudyNotification(notificationManager)
         } else {
             showPauseNotification(notificationManager)
@@ -40,11 +66,17 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
     }
 
     fun showStudyNotification(notificationManager: NotificationManager) {
-        notificationManager.sendNotification(app.getString(R.string.notificationStudyDescription), app)
+        notificationManager.sendNotification(
+            app.getString(R.string.notificationStudyDescription),
+            app
+        )
     }
 
     fun showPauseNotification(notificationManager: NotificationManager) {
-        notificationManager.sendNotification(app.getString(R.string.notificationPauseDescription), app)
+        notificationManager.sendNotification(
+            app.getString(R.string.notificationPauseDescription),
+            app
+        )
     }
 
 }

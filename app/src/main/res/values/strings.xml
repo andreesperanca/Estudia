@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Estudia</string>
     <string name="study">Estudando</string>
-    <string name="pause">Pausa</string>
+    <string name="shortPause">Pausa Curta</string>
     <string name="channelDescription">Descrição do canal.</string>
 
 
@@ -16,5 +16,6 @@
     <string name="notifications">Notificações</string>
     <string name="pomodoro">Pomodoro</string>
     <string name="timeSettings">"Definições de tempo  "</string>
+    <string name="longPause">Pausa Longa</string>
 
 </resources>

@@ -42,22 +42,26 @@ fun ControlPanelScreen(
     )
     {
         CircularTimeIndicator(
-            titleText = if (uiState == ControlPanelScreenState.Pause) {
-                stringResource(id = R.string.pause)
+            titleText = (if (uiState == ControlPanelScreenState.ShortPause) {
+                stringResource(id = R.string.shortPause)
+            } else if (uiState == ControlPanelScreenState.LongPause) {
+                stringResource(id = R.string.longPause)
             } else {
                 stringResource(id = R.string.study)
-            },
+            }),
             configButtonClick = {
                 navHostController.navigate(Screen.Settings.route)
             },
             changeStateButtonClick = {
                 viewModel.changeState()
             },
-            totalTime = if (uiState == ControlPanelScreenState.Pause) {
-                300L
-            } else {
-                1800L
-            },
+            totalTime =
+            when (uiState) {
+                ControlPanelScreenState.ShortPause -> { 1L }
+                ControlPanelScreenState.Study -> { 1L }
+                ControlPanelScreenState.LongPause -> { 1L }
+            }
+            ,
             timeIsOver = {
                 viewModel.showNotification(state = uiState)
             }
