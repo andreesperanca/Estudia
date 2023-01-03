@@ -17,12 +17,21 @@ package com.andreesperanca.estudia.todo
  * fix: bug seconds for circular time indicator  ["x"]
  * feat: add navigation click in settings screen ["x"]
  * feat: synchronize booleans datastore values with app ["x"]
+ ******************************************************************
 
-
+ * 29/12/2022
+ ****************************************************************
+ * feat: do not turn off the screen while using the app ["x"]
+ *
+ *
+ * feat: work in background
+ * fix: better circular indicator animation
+ *
  *****************************************************************
 
  *****************************************************************
  * Finish Step -->
+ * ref: refactor code
  * feat: make accessibility app
  * feat: configuration app for several tips screens formats
  * feat: tests and perform

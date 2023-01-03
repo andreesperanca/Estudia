@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +31,7 @@ import com.andreesperanca.estudia.util.converterTimeForCircularIndicator
 fun ControlPanelScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    viewModel: ControlPanelViewModel = viewModel(),
+    viewModel: ControlPanelViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -45,6 +45,24 @@ fun ControlPanelScreen(
     val automaticIndicatorPreference =
         datastore.getAutomaticIndicatorPreference.collectAsState(false)
 
+    var _pomodoroTime by rememberSaveable {
+        mutableStateOf(pomodoroTime)
+    }
+
+    var _shortBreakTime by rememberSaveable {
+        mutableStateOf(shortBreakTime)
+    }
+
+    var _longBreakTime by rememberSaveable {
+        mutableStateOf(longBreakTime)
+    }
+
+
+    var widthLocal = LocalConfiguration.current.screenWidthDp.dp
+    var heightLocal = LocalConfiguration.current.screenHeightDp.dp
+
+    val size = if (widthLocal > heightLocal) heightLocal else widthLocal
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -55,13 +73,19 @@ fun ControlPanelScreen(
     )
     {
         CircularTimeIndicator(
-            titleText = (if (uiState == ControlPanelScreenState.ShortPause) {
-                stringResource(id = R.string.shortPause)
-            } else if (uiState == ControlPanelScreenState.LongPause) {
-                stringResource(id = R.string.longPause)
-            } else {
-                stringResource(id = R.string.study)
-            }),
+            canvasSize = size,
+            titleText =
+            when (uiState) {
+                ControlPanelScreenState.ShortPause -> {
+                    stringResource(id = R.string.shortPause)
+                }
+                ControlPanelScreenState.LongPause -> {
+                    stringResource(id = R.string.longPause)
+                }
+                else -> {
+                    stringResource(id = R.string.study)
+                }
+            },
             configButtonClick = {
                 navHostController.navigate(Screen.Settings.route)
             },
@@ -71,13 +95,13 @@ fun ControlPanelScreen(
             totalTime =
             when (uiState) {
                 ControlPanelScreenState.ShortPause -> {
-                    shortBreakTime.value!!.converterTimeForCircularIndicator()
+                    _shortBreakTime.value!!.converterTimeForCircularIndicator()
                 }
                 ControlPanelScreenState.Study -> {
-                    pomodoroTime.value!!.converterTimeForCircularIndicator()
+                    _pomodoroTime.value!!.converterTimeForCircularIndicator()
                 }
                 ControlPanelScreenState.LongPause -> {
-                    longBreakTime.value!!.converterTimeForCircularIndicator()
+                    _longBreakTime.value!!.converterTimeForCircularIndicator()
                 }
             },
             timeIsOver = {
@@ -86,7 +110,7 @@ fun ControlPanelScreen(
                 }
                 viewModel.autoChangeState()
             },
-            automaticPreference = automaticIndicatorPreference.value,
+            automaticPreference = automaticIndicatorPreference.value
         )
     }
 

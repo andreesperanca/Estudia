@@ -11,18 +11,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app) {
+class ControlPanelViewModel(
+    private val app: Application
+    ) : AndroidViewModel(app) {
 
     private var _uiState =
-        MutableStateFlow<ControlPanelScreenState>(ControlPanelScreenState.ShortPause)
+        MutableStateFlow<ControlPanelScreenState>(ControlPanelScreenState.Study)
     val uiState: StateFlow<ControlPanelScreenState> = _uiState.asStateFlow()
 
     private var _countPomodoro: Int = 0
     val countPomodoro: Int
         get() = _countPomodoro
-
-    /** TIME VALUES **/
-
 
     fun autoChangeState() {
         when (_uiState.value) {
@@ -58,7 +57,7 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
         }
     }
 
-    fun pomodoroCounter() {
+    private fun pomodoroCounter() {
         if (_countPomodoro >= 4) {
             _countPomodoro = 0
         }
@@ -77,14 +76,14 @@ class ControlPanelViewModel(private val app: Application) : AndroidViewModel(app
         }
     }
 
-    fun showStudyNotification(notificationManager: NotificationManager) {
+    private fun showStudyNotification(notificationManager: NotificationManager) {
         notificationManager.sendNotification(
             app.getString(R.string.notificationStudyDescription),
             app
         )
     }
 
-    fun showPauseNotification(notificationManager: NotificationManager) {
+    private fun showPauseNotification(notificationManager: NotificationManager) {
         notificationManager.sendNotification(
             app.getString(R.string.notificationPauseDescription),
             app

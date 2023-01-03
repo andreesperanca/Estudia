@@ -1,14 +1,12 @@
 package com.andreesperanca.estudia.ui.components
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -18,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -34,13 +33,12 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 fun CircularTimeIndicator(
-
     /** CANVAS */
-    canvasSize: Dp = 300.dp,
+    canvasSize: Dp,
     backgroundIndicatorColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
-    backgroundIndicatorStrokeWidth: Float = 60f,
+    backgroundIndicatorStrokeWidth: Float = (canvasSize / 50.dp),
     foregroundIndicatorColor: Color = MaterialTheme.colors.primary,
-    foregroundIndicatorStrokeWidth: Float = 60f,
+    foregroundIndicatorStrokeWidth: Float = (canvasSize / 50.dp),
     titleText: String = stringResource(id = R.string.study),
     titleTextColor: Color = MaterialTheme.colors.onSurface.copy(0.4f),
     titleTextStyle: TextStyle = MaterialTheme.typography.h5,
@@ -58,15 +56,15 @@ fun CircularTimeIndicator(
     timeIsOver: () -> Unit,
     automaticPreference: Boolean
 ) {
-    var value by remember {
+    var value by rememberSaveable {
         mutableStateOf(0f)
     }
 
-    var currentTime by remember {
+    var currentTime by rememberSaveable {
         mutableStateOf(0f)
     }
 
-    var isTimerRunning by remember {
+    var isTimerRunning by rememberSaveable {
         mutableStateOf(false)
     }
 
@@ -92,62 +90,129 @@ fun CircularTimeIndicator(
         animationSpec = tween(1000)
     )
 
+    val widthLocal = LocalConfiguration.current.screenWidthDp.dp
+    val heightLocal = LocalConfiguration.current.screenHeightDp.dp
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    val screenLying = heightLocal > widthLocal
+
+    if (screenLying) {
         Column(
-            modifier = Modifier
-                .size(canvasSize)
-                .drawBehind {
-                    val componentSize = size / 1.25f
-                    backgroundIndicator(
-                        componentSize = componentSize,
-                        indicatorColor = backgroundIndicatorColor,
-                        indicatorStrokeWith = backgroundIndicatorStrokeWidth
-                    )
-                    foregroundIndicator(
-                        sweepAngle = (sweepAngle * 360),
-                        componentSize = componentSize,
-                        indicatorColor = foregroundIndicatorColor,
-                        indicatorStrokeWith = foregroundIndicatorStrokeWidth
-                    )
-                },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
         ) {
-            DescriptionCircularTimeIndicator(
-                titleText = titleText,
-                titleTextColor = titleTextColor,
-                titleTextStyle = titleTextStyle,
-                timeTextStyle = timeTextStyle,
-                timeTextColor = timeTextColor,
-                currentTime = timeConverter(currentTime.toLong())
-            )
-        }
+            Column(
+                modifier = Modifier
+                    .size(canvasSize)
+                    .drawBehind {
+                        val componentSize = size / 1.2f
+                        backgroundIndicator(
+                            componentSize = componentSize,
+                            indicatorColor = backgroundIndicatorColor,
+                            indicatorStrokeWith = backgroundIndicatorStrokeWidth
+                        )
+                        foregroundIndicator(
+                            sweepAngle = (sweepAngle * 360),
+                            componentSize = componentSize,
+                            indicatorColor = foregroundIndicatorColor,
+                            indicatorStrokeWith = foregroundIndicatorStrokeWidth
+                        )
+                    },
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                DescriptionCircularTimeIndicator(
+                    titleText = titleText,
+                    titleTextColor = titleTextColor,
+                    titleTextStyle = titleTextStyle,
+                    timeTextStyle = timeTextStyle,
+                    timeTextColor = timeTextColor,
+                    currentTime = timeConverter(currentTime.toLong())
+                )
+            }
 
-        ControlPanel(
-            playButtonClick = {
-                isTimerRunning = if (currentTime <= 0L) {
-                    true
+            HorizontalControlPanel(
+                playButtonClick = {
+                    isTimerRunning = if (currentTime <= 0L) {
+                        true
+                    } else {
+                        !isTimerRunning
+                    }
+                },
+                playButtonPainter = if (isTimerRunning) {
+                    painterResource(id = R.drawable.ic_pause)
                 } else {
-                    !isTimerRunning
-                }
-            },
-            playButtonPainter = if (isTimerRunning) {
-                painterResource(id = R.drawable.ic_pause)
-            } else {
-                painterResource(id = R.drawable.ic_play)
-            },
-            changeStateButtonClick = {
-                value = 0f
-                currentTime = 0f
-                isTimerRunning = false
-                changeStateButtonClick()
-            },
-            configButtonClick = { configButtonClick() }
-        )
+                    painterResource(id = R.drawable.ic_play)
+                },
+                changeStateButtonClick = {
+                    value = 0f
+                    currentTime = 0f
+                    isTimerRunning = false
+                    changeStateButtonClick()
+                },
+                configButtonClick = { configButtonClick() }
+            )
+
+        }
+    }
+    else {
+        Row(
+            verticalAlignment =  Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Column(
+                modifier = Modifier
+                    .size(canvasSize)
+                    .drawBehind {
+                        val componentSize = size / 1.2f
+                        backgroundIndicator(
+                            componentSize = componentSize,
+                            indicatorColor = backgroundIndicatorColor,
+                            indicatorStrokeWith = backgroundIndicatorStrokeWidth
+                        )
+                        foregroundIndicator(
+                            sweepAngle = (sweepAngle * 360),
+                            componentSize = componentSize,
+                            indicatorColor = foregroundIndicatorColor,
+                            indicatorStrokeWith = foregroundIndicatorStrokeWidth
+                        )
+                    },
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                DescriptionCircularTimeIndicator(
+                    titleText = titleText,
+                    titleTextColor = titleTextColor,
+                    titleTextStyle = titleTextStyle,
+                    timeTextStyle = timeTextStyle,
+                    timeTextColor = timeTextColor,
+                    currentTime = timeConverter(currentTime.toLong())
+                )
+            }
+
+            VerticalControlPanel(
+                playButtonClick = {
+                    isTimerRunning = if (currentTime <= 0L) {
+                        true
+                    } else {
+                        !isTimerRunning
+                    }
+                },
+                playButtonPainter = if (isTimerRunning) {
+                    painterResource(id = R.drawable.ic_pause)
+                } else {
+                    painterResource(id = R.drawable.ic_play)
+                },
+                changeStateButtonClick = {
+                    value = 0f
+                    currentTime = 0f
+                    isTimerRunning = false
+                    changeStateButtonClick()
+                },
+                configButtonClick = { configButtonClick() }
+            )
+
+        }
     }
 }
 
@@ -233,7 +298,8 @@ fun PreviewCircularTimeIndicator() {
             configButtonClick = {},
             changeStateButtonClick = {},
             timeIsOver = {},
-            automaticPreference = true
+            automaticPreference = true,
+            canvasSize = 300.dp
         )
     }
 }
