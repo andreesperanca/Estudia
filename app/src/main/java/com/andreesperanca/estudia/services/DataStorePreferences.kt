@@ -8,10 +8,15 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.andreesperanca.estudia.util.converterMinutes
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class DataStorePreferences(private val context: Context) {
+class DataStorePreferences
+@Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
@@ -72,6 +77,7 @@ class DataStorePreferences(private val context: Context) {
             preferences[USER_SHORT_BREAK_TIME_PREFERENCE] = shortBreakTime
         }
     }
+
     suspend fun savePomodoroTime(pomodoroTime: Long) {
         context.dataStore.edit { preferences ->
             preferences[USER_POMODORO_TIME_PREFERENCE] = pomodoroTime

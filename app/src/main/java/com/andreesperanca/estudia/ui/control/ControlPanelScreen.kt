@@ -7,21 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.R
-import com.andreesperanca.estudia.data.ControlPanelScreenState
-import com.andreesperanca.estudia.navigation.Screen
-import com.andreesperanca.estudia.services.DataStorePreferences
+import com.andreesperanca.estudia.models.ControlPanelScreenState
+import com.andreesperanca.estudia.navigation.Screens
 import com.andreesperanca.estudia.ui.components.CircularTimeIndicator
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 import com.andreesperanca.estudia.util.converterTimeForCircularIndicator
@@ -31,31 +28,16 @@ import com.andreesperanca.estudia.util.converterTimeForCircularIndicator
 fun ControlPanelScreen(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    viewModel: ControlPanelViewModel = viewModel()
+    viewModel: ControlPanelViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    val context = LocalContext.current
-    val datastore = DataStorePreferences(context)
 
-    val pomodoroTime = datastore.getPomodoroTime.collectAsState(0)
-    val shortBreakTime = datastore.getShortBreakTime.collectAsState(0)
-    val longBreakTime = datastore.getLongBreakTime.collectAsState(0)
-    val notificationsPreference = datastore.getNotificationPreference.collectAsState(false)
-    val automaticIndicatorPreference =
-        datastore.getAutomaticIndicatorPreference.collectAsState(false)
-
-    var _pomodoroTime by rememberSaveable {
-        mutableStateOf(pomodoroTime)
-    }
-
-    var _shortBreakTime by rememberSaveable {
-        mutableStateOf(shortBreakTime)
-    }
-
-    var _longBreakTime by rememberSaveable {
-        mutableStateOf(longBreakTime)
-    }
+    val notificationsPreference =
+        viewModel.fetchNotificationPreference().collectAsState(initial = false).value!!
+    val automaticIndicatorPreference = viewModel.fetchAutomaticCircularIndicator().collectAsState(
+        initial = false
+    ).value!!
 
 
     var widthLocal = LocalConfiguration.current.screenWidthDp.dp
@@ -87,7 +69,7 @@ fun ControlPanelScreen(
                 }
             },
             configButtonClick = {
-                navHostController.navigate(Screen.Settings.route)
+                navHostController.navigate(Screens.Settings.route)
             },
             changeStateButtonClick = {
                 viewModel.manualChangeState()
@@ -95,22 +77,25 @@ fun ControlPanelScreen(
             totalTime =
             when (uiState) {
                 ControlPanelScreenState.ShortPause -> {
-                    _shortBreakTime.value!!.converterTimeForCircularIndicator()
+                    viewModel.fetchShortBreakTime()
+                        .collectAsState(initial = 99999).value!!.converterTimeForCircularIndicator()
                 }
                 ControlPanelScreenState.Study -> {
-                    _pomodoroTime.value!!.converterTimeForCircularIndicator()
+                    viewModel.fetchPomodoroTime()
+                        .collectAsState(initial = 99999).value!!.converterTimeForCircularIndicator()
                 }
                 ControlPanelScreenState.LongPause -> {
-                    _longBreakTime.value!!.converterTimeForCircularIndicator()
+                    viewModel.fetchLongBreakTime()
+                        .collectAsState(initial = 99999).value!!.converterTimeForCircularIndicator()
                 }
             },
             timeIsOver = {
-                if (notificationsPreference.value) {
+                if (notificationsPreference) {
                     viewModel.showNotification(state = uiState)
                 }
                 viewModel.autoChangeState()
             },
-            automaticPreference = automaticIndicatorPreference.value
+            automaticPreference = automaticIndicatorPreference
         )
     }
 
@@ -122,6 +107,8 @@ fun ControlPanelScreen(
 fun PreviewControlPanel() {
     val navController = rememberNavController()
     EstudiaTheme {
-        ControlPanelScreen(navHostController = navController)
+        ControlPanelScreen(
+            navHostController = navController
+        )
     }
 }

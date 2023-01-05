@@ -3,17 +3,25 @@ package com.andreesperanca.estudia.ui.control
 import android.app.Application
 import android.app.NotificationManager
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.andreesperanca.estudia.R
-import com.andreesperanca.estudia.data.ControlPanelScreenState
+import com.andreesperanca.estudia.models.ControlPanelScreenState
+import com.andreesperanca.estudia.repositories.PanelControlRepository
 import com.andreesperanca.estudia.services.sendNotification
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class ControlPanelViewModel(
-    private val app: Application
-    ) : AndroidViewModel(app) {
+
+@HiltViewModel
+class ControlPanelViewModel
+@Inject constructor(
+    private val repository: PanelControlRepository,
+    private val app: Application,
+) : ViewModel() {
 
     private var _uiState =
         MutableStateFlow<ControlPanelScreenState>(ControlPanelScreenState.Study)
@@ -22,6 +30,16 @@ class ControlPanelViewModel(
     private var _countPomodoro: Int = 0
     val countPomodoro: Int
         get() = _countPomodoro
+
+    fun fetchPomodoroTime(): Flow<Long?> = repository.fetchPomodoroTime()
+
+    fun fetchLongBreakTime(): Flow<Long?> = repository.fetchLongBreakTime()
+
+    fun fetchShortBreakTime(): Flow<Long?> = repository.fetchShortBreakTime()
+
+    fun fetchNotificationPreference(): Flow<Boolean?> = repository.fetchNotificationPreference()
+
+    fun fetchAutomaticCircularIndicator(): Flow<Boolean?> = repository.fetchAutomaticCircularIndicator()
 
     fun autoChangeState() {
         when (_uiState.value) {
@@ -89,5 +107,4 @@ class ControlPanelViewModel(
             app
         )
     }
-
 }

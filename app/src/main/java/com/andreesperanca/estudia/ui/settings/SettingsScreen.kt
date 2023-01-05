@@ -19,10 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.andreesperanca.estudia.R
-import com.andreesperanca.estudia.navigation.Screen
 import com.andreesperanca.estudia.services.DataStorePreferences
 import com.andreesperanca.estudia.ui.components.SettingsItem
 import com.andreesperanca.estudia.ui.components.SettingsTimerItem
@@ -31,23 +31,19 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
-
+    val rememberCoroutineScope = rememberCoroutineScope()
     val verticalScrollState = rememberScrollState()
-    // context
-    val context = LocalContext.current
-    //scope de coroutine para compose
-    val scope = rememberCoroutineScope()
-    //datastore
-    val datastore = DataStorePreferences(context)
 
-    val pomodoroTime = datastore.getPomodoroTime.collectAsState(0)
-    val shortBreakTime = datastore.getShortBreakTime.collectAsState(0)
-    val longBreakTime = datastore.getLongBreakTime.collectAsState(0)
-    val notificationsPreference = datastore.getNotificationPreference.collectAsState(false)
+    val pomodoroTime = viewModel.fetchPomodoroTime().collectAsState(initial = 0).value
+    val shortBreakTime = viewModel.fetchShortBreakTime().collectAsState(initial = 0).value
+    val longBreakTime = viewModel.fetchLongBreakTime().collectAsState(initial = 0).value
+    val notificationsPreference =
+        viewModel.fetchNotificationPreference().collectAsState(initial = false).value
     val automaticIndicatorPreference =
-        datastore.getAutomaticIndicatorPreference.collectAsState(false)
+        viewModel.fetchAutomaticCircularIndicator().collectAsState(initial = false).value
 
     Surface(color = MaterialTheme.colors.background) {
         Scaffold(
@@ -85,24 +81,20 @@ fun SettingsScreen(
                         settingTitle = "Notificações",
                         settingDescription = stringResource(id = R.string.notificationSettingDescription),
                         onClick = { notificationsPreference ->
-                            scope.launch {
-                                datastore.saveNotificationPreference(
-                                    notificationsPreference
-                                )
+                            rememberCoroutineScope.launch {
+                                viewModel.saveNotificationPreference(notificationsPreference)
                             }
-                        }, checked = notificationsPreference.value
+                        }, checked = notificationsPreference!!
                     )
                     SettingsItem(
                         settingTitle = "Cronômetro",
                         settingDescription = stringResource(id = R.string.timerSettingDescription),
                         onClick = { automaticIndicatorPreference ->
-                            scope.launch {
-                                datastore.saveAutomaticIndicatorPreference(
-                                    automaticIndicatorPreference
-                                )
+                            rememberCoroutineScope.launch {
+                               viewModel.saveAutomaticIndicatorPreference(automaticIndicatorPreference)
                             }
                         },
-                        checked = automaticIndicatorPreference.value
+                        checked = automaticIndicatorPreference!!
                     )
 
                     Text(
@@ -116,49 +108,45 @@ fun SettingsScreen(
 
                     SettingsTimerItem(
                         titleDuration = "Pomodoro",
-                        duration = pomodoroTime.value!!,
+                        duration = pomodoroTime!!,
                         addClick = { pomodoroTime ->
-                            scope.launch {
-                                datastore.savePomodoroTime(
-                                    pomodoroTime
-                                )
+                            rememberCoroutineScope.launch {
+                                viewModel.savePomodoroTime(pomodoroTime)
                             }
                         },
                         removeClick = { pomodoroTime ->
-                            scope.launch {
-                                datastore.savePomodoroTime(
-                                    pomodoroTime
-                                )
+                            rememberCoroutineScope.launch {
+                                viewModel.savePomodoroTime(pomodoroTime)
                             }
                         },
                     )
 
                     SettingsTimerItem(
-                        duration = shortBreakTime.value!!,
+                        duration = shortBreakTime!!,
                         titleDuration = "Pausa curta",
                         addClick = { shortBreakTime ->
-                            scope.launch {
-                                datastore.saveShortBreakTime(shortBreakTime)
+                            rememberCoroutineScope.launch {
+                                viewModel.saveShortBreakTime(shortBreakTime)
                             }
                         },
                         removeClick = { shortBreakTime ->
-                            scope.launch {
-                                datastore.saveShortBreakTime(shortBreakTime)
+                            rememberCoroutineScope.launch {
+                                viewModel.saveShortBreakTime(shortBreakTime)
                             }
                         },
                     )
 
                     SettingsTimerItem(
-                        duration = longBreakTime.value!!,
+                        duration = longBreakTime!!,
                         titleDuration = "Pausa longa",
                         addClick = { longBreakTime ->
-                            scope.launch {
-                                datastore.saveLongBreakTime(longBreakTime)
+                            rememberCoroutineScope.launch {
+                                viewModel.saveLongBreakTime(longBreakTime)
                             }
                         },
                         removeClick = { longBreakTime ->
-                            scope.launch {
-                                datastore.saveLongBreakTime(longBreakTime)
+                            rememberCoroutineScope.launch {
+                                viewModel.saveLongBreakTime(longBreakTime)
                             }
 
                         }

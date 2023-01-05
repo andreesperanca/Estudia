@@ -8,18 +8,21 @@ import com.andreesperanca.estudia.ui.control.ControlPanelScreen
 import com.andreesperanca.estudia.ui.settings.SettingsScreen
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(
+    navController: NavHostController
+) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.ControlPanel.route
+        startDestination = Screens.ControlPanel.route
     ) {
 
-        composable(route = Screen.ControlPanel.route) {
-            ControlPanelScreen(navHostController = navController)
+        composable(route = Screens.ControlPanel.route) {
+            ControlPanelScreen(
+                navHostController = navController)
         }
 
-        composable(route = Screen.Settings.route) {
+        composable(route = Screens.Settings.route) {
             SettingsScreen(navHostController = navController)
         }
     }

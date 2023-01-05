@@ -1,4 +1,4 @@
-package com.andreesperanca.estudia.data
+package com.andreesperanca.estudia.models
 
 sealed class ControlPanelScreenState {
     object Study: ControlPanelScreenState()
