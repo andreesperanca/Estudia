@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ModifierInfo
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.andreesperanca.estudia.R
@@ -24,7 +26,8 @@ import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 fun PlayButton(
     modifier: Modifier = Modifier,
     playButtonClick: () -> Unit = {},
-    playButtonIcon: Painter = painterResource(id = R.drawable.ic_play)
+    playButtonIcon: Painter = painterResource(id = R.drawable.ic_play),
+    playContentDescription: String
 ) {
     Button(
         onClick = { playButtonClick() },
@@ -40,7 +43,7 @@ fun PlayButton(
     ) {
         Icon(
             painter = playButtonIcon,
-            contentDescription = null,
+            contentDescription = playContentDescription,
             modifier = Modifier
                 .fillMaxSize()
                 .width(24.dp)
@@ -71,7 +74,7 @@ fun ConfigButton(
     ) {
         Icon(
             imageVector = configButtonIcon,
-            contentDescription = null,
+            contentDescription = stringResource(id = R.string.configurationButton),
             modifier = Modifier
                 .align(CenterVertically)
                 .fillMaxSize()
@@ -96,14 +99,14 @@ fun ChangeStateButton(
             contentColor = Color.White
         ),
         shape = AbsoluteRoundedCornerShape(16.dp),
-        modifier = Modifier
+        modifier = modifier
             .width(76.dp)
             .height(56.dp)
             .padding(4.dp)
     ) {
         Icon(
             imageVector = changeStateButtonIcon,
-            contentDescription = null,
+            contentDescription = stringResource(id = R.string.changeStateButton),
             modifier = Modifier
                 .align(CenterVertically)
                 .fillMaxSize()
@@ -119,7 +122,7 @@ fun ChangeStateButton(
 @Preview(showBackground = true)
 fun PreviewPlayButton() {
     EstudiaTheme {
-        PlayButton()
+        PlayButton(playContentDescription = "")
     }
 }
 

@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 fun CircularTimeIndicator(
-    /** CANVAS */
     canvasSize: Dp,
     backgroundIndicatorColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
     backgroundIndicatorStrokeWidth: Float = (canvasSize / 50.dp),
@@ -44,15 +43,9 @@ fun CircularTimeIndicator(
     titleTextStyle: TextStyle = MaterialTheme.typography.h5,
     timeTextStyle: TextStyle = MaterialTheme.typography.h6,
     timeTextColor: Color = MaterialTheme.colors.primary,
-
-    /** Parâmetros */
     totalTime: Long,
-
-    /** Play Button */
     configButtonClick: () -> Unit,
     changeStateButtonClick: () -> Unit,
-
-    /** Time is over */
     timeIsOver: () -> Unit,
     automaticPreference: Boolean
 ) {
@@ -150,14 +143,18 @@ fun CircularTimeIndicator(
                     isTimerRunning = false
                     changeStateButtonClick()
                 },
-                configButtonClick = { configButtonClick() }
+                configButtonClick = { configButtonClick() },
+                playButtonDescription = if (isTimerRunning) {
+                    stringResource(id = R.string.pauseTime)
+                } else {
+                    stringResource(id = R.string.initTime)
+                }
             )
 
         }
-    }
-    else {
+    } else {
         Row(
-            verticalAlignment =  Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
             Column(
@@ -209,7 +206,12 @@ fun CircularTimeIndicator(
                     isTimerRunning = false
                     changeStateButtonClick()
                 },
-                configButtonClick = { configButtonClick() }
+                configButtonClick = { configButtonClick() },
+                playButtonDescription = if (isTimerRunning) {
+                    stringResource(id = R.string.pauseTime)
+                } else {
+                    stringResource(id = R.string.initTime)
+                }
             )
 
         }

@@ -1,10 +1,11 @@
-package com.andreesperanca.estudia
+package com.andreesperanca.estudia.application
 
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
+import com.andreesperanca.estudia.R
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

@@ -8,7 +8,6 @@ interface SettingsRepository {
     fun fetchShortBreakTime(): Flow<Long?>
     fun fetchNotificationPreference(): Flow<Boolean?>
     fun fetchAutomaticCircularIndicator(): Flow<Boolean?>
-
     suspend fun saveNotificationPreference(notificationPref: Boolean)
     suspend fun saveAutomaticIndicatorPreference(automaticIndicator: Boolean)
     suspend fun saveLongBreakTime(longBreakTime: Long)

@@ -25,6 +25,7 @@ import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 fun HorizontalControlPanel(
     playButtonClick: () -> Unit,
     playButtonPainter: Painter,
+    playButtonDescription: String,
 
     changeStateButtonClick: () -> Unit,
     configButtonClick: () -> Unit,
@@ -39,7 +40,8 @@ fun HorizontalControlPanel(
             )
             PlayButton(
                 playButtonClick = { playButtonClick() },
-                playButtonIcon = playButtonPainter
+                playButtonIcon = playButtonPainter,
+                playContentDescription = playButtonDescription
             )
             ChangeStateButton(changeStateClick = {
                 changeStateButtonClick()
@@ -52,6 +54,7 @@ fun HorizontalControlPanel(
 fun VerticalControlPanel(
     playButtonClick: () -> Unit,
     playButtonPainter: Painter,
+    playButtonDescription: String,
 
     changeStateButtonClick: () -> Unit,
     configButtonClick: () -> Unit,
@@ -66,7 +69,8 @@ fun VerticalControlPanel(
             )
             PlayButton(
                 playButtonClick = { playButtonClick() },
-                playButtonIcon = playButtonPainter
+                playButtonIcon = playButtonPainter,
+                playContentDescription = playButtonDescription
             )
             ChangeStateButton(changeStateClick = {
                 changeStateButtonClick()
@@ -87,7 +91,8 @@ fun PreviewVerticalPanelControl() {
                 playButtonPainter = painterResource(id = R.drawable.ic_play),
                 playButtonClick = {},
                 changeStateButtonClick = {},
-                configButtonClick = {}
+                configButtonClick = {},
+                playButtonDescription = ""
             )
         }
     }
@@ -102,7 +107,8 @@ fun PreviewHorizontalPanelControl() {
                 playButtonPainter = painterResource(id = R.drawable.ic_play),
                 playButtonClick = {},
                 changeStateButtonClick = {},
-                configButtonClick = {}
+                configButtonClick = {},
+                playButtonDescription = ""
             )
         }
     }

@@ -17,7 +17,6 @@ class DataStorePreferences
 @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
         val USER_POMODORO_TIME_PREFERENCE = longPreferencesKey("pomodoroTime")
@@ -52,7 +51,6 @@ class DataStorePreferences
     val getAutomaticIndicatorPreference: Flow<Boolean> = context.dataStore.data.map { preferences ->
         preferences[USER_AUTOMATIC_INDICATOR_PREFERENCE] ?: DEFAULT_AUTOMATIC_CIRCULAR_INDICATOR
     }
-
 
     suspend fun saveNotificationPreference(notificationPref: Boolean) {
         context.dataStore.edit { preferences ->

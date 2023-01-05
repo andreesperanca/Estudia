@@ -17,5 +17,9 @@
     <string name="pomodoro">Pomodoro</string>
     <string name="timeSettings">"Definições de tempo  "</string>
     <string name="longPause">Pausa Longa</string>
+    <string name="configurationButton">Botão de configurações.</string>
+    <string name="changeStateButton">Trocar de estado.</string>
+    <string name="pauseTime">Pausar temporizador.</string>
+    <string name="initTime">Iniciar temporizador.</string>
 
 </resources>

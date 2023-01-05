@@ -42,6 +42,7 @@ fun SettingsItem(
                 .weight(1f)
         ) {
             Text(
+                style = MaterialTheme.typography.body2,
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp),
                 color = MaterialTheme.colors.onBackground,
                 text = settingTitle

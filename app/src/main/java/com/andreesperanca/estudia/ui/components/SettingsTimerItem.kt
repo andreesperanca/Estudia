@@ -18,10 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.andreesperanca.estudia.R
 import com.andreesperanca.estudia.ui.theme.EstudiaTheme
 
-/** Bugs */
-// INCREMENT AND DECREMENT FOR DURATION FIXED
-
-
 @Composable
 fun SettingsTimerItem(
     modifier: Modifier = Modifier,

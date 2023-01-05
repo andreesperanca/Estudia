@@ -11,21 +11,17 @@ import com.andreesperanca.estudia.ui.settings.SettingsScreen
 fun SetupNavGraph(
     navController: NavHostController
 ) {
-
     NavHost(
         navController = navController,
         startDestination = Screens.ControlPanel.route
     ) {
-
         composable(route = Screens.ControlPanel.route) {
             ControlPanelScreen(
-                navHostController = navController)
+                navHostController = navController
+            )
         }
-
         composable(route = Screens.Settings.route) {
             SettingsScreen(navHostController = navController)
         }
     }
-
-
 }
