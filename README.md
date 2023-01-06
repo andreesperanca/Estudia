@@ -48,7 +48,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
   - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
 - Arquitetura 
-  - MVVM (View - ViewModel - Model)
+  - MVVM (Model - View - View-Model)
   - Comunicação da ViewModel com a View através de State Flow
   - Comunicação da ViewModel com a Model através de Kotlin Flow
   - Repositories para abstração da comunidação com a camada de dados.
