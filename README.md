@@ -57,7 +57,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 **Estudia** utiliza a arquitetura MVVM e o padrão de Repositories, que segue as [recomendações oficiais do Google](https://developer.android.com/topic/architecture).
 </br></br>
 
-<img src="assets/play_and_pause_feature - Copia.gif" width="25%"/>
+<img src="assets/arquitetura.png" width="25%"/>
 
 <br>
 
