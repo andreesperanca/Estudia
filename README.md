@@ -37,7 +37,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 
 ## Tecnologias usadas e bibliotecas de código aberto
 
-- Minimum SDK level COLOQUE AQUI A APK MINIMA
+- Minimum SDK level 21
 - [Linguagem Kotlin](https://kotlinlang.org/)
 
 - Jetpack 
@@ -100,9 +100,6 @@ Após um ciclo de estudo você terá uma pausa curta.
 Após quatro ciclos de estudo consecutivos você terá uma pausa longa.
 
 # Licença
-
-COLOQUE A LICENÇA - https://opensource.org/licenses
-
 ```xml
 
    Copyright [2023] [André Luiz Esperança Correia]
