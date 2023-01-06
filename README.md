@@ -80,14 +80,19 @@ Notificações ao finalizar ciclos.
 Escolher entre usar ou não notificações e temporizador que iniciará ciclos automáticamente.
 
 ### Trocar definições de tempo
-<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+<img src="assets/change_times_feature - Copia.gif" width="25%"/>
 
 Trocar difições de duração de cilos de estudo, pausa e pausa longa.
 
-### Após 4 ciclos utilizar pausas longas
+### Pausas curtas
 <img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
 
-Para respeitar o ciclo pomodoro deve fazer uma pausa longa depois de 4 ciclos de estudos.
+Após um ciclo de estudo você terá uma pausa curta.
+
+### Pausas longas
+<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+
+Após quatro ciclos de estudo consecutivos você terá uma pausa longa.
 
 # Licença
 
