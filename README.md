@@ -38,38 +38,32 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 ## Tecnologias usadas e bibliotecas de código aberto
 
 - Minimum SDK level COLOQUE AQUI A APK MINIMA
-- [Linguagem Kotlin](https://kotlinlang.org/) OU JAVA SE USAR JAVA
+- [Linguagem Kotlin](https://kotlinlang.org/)
 
-- Jetpack - LISTE O MÁXIMO DE COMPONENTES DO JETPACK QUE VOCÊ USA
+- Jetpack 
+  - Compose: Para escrever a UI de maneira programática com funções de composição que descrevem a forma e as dependências de dados dela. 
   - Lifecycle: Observe os ciclos de vida do Android e manipule os estados da interface do usuário após as alterações do ciclo de vida.
   - ViewModel: Gerencia o detentor de dados relacionados à interface do usuário e o ciclo de vida. Permite que os dados sobrevivam a alterações de configuração, como rotações de tela.
   - ViewBinding: Liga os componentes do XML no Kotlin através de uma classe que garante segurança de tipo e outras vantagens.
   - Room: Biblioteca de abstração do banco de dados SQLite que garante segurança em tempo de compilação e facilidade de uso.
-  - Custom Views: View customizadas feitas do zero usando XML.
-  - [...]
+  - Custom Views: View customizadas feitas do zero usando Jetpack Compose.
+  - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
-- Arquitetura - LISTE BREVEMENTE OS COMPONENTES DA SUA ARQUITETURA UTILIZADA
+- Arquitetura 
   - MVVM (View - ViewModel - Model)
   - Comunicação da ViewModel com a View através de LiveData
   - Comunicação da ViewModel com a Model através de Kotlin Flow
   - Repositories para abstração da comunidação com a camada de dados.
+  - Interfaces que são implementadas nos repositories para facilitar os testes unitários.
   
-- Bibliotecas - LISTE TODAS AS BIBLIOTECAS USADAS NO PROJETO, COM LINK E DESCRIÇÃO BREVE DO QUE ELA FAZ
-  - [Retrofit2 & OkHttp3](https://github.com/square/retrofit): Para realizar requisições seguindo o padrão HTTP.
-  - [Glide](https://github.com/bumptech/glide): Para carregamento de imagens e cacheamento das mesmas.
-  - [Timber](https://github.com/JakeWharton/timber): Para registros de logs mais amigáveis que facilitam o debug.
-  - [...]
-
 ## Arquitetura
 APRESENTE A ARQUITETURA UTILIZADA NO PROJETO
-**Nome do aplicativo** utiliza a arquitetura MVVM e o padrão de Repositories, que segue as [recomendações oficiais do Google](https://developer.android.com/topic/architecture).
+**Estudia** utiliza a arquitetura MVVM e o padrão de Repositories, que segue as [recomendações oficiais do Google](https://developer.android.com/topic/architecture).
 </br></br>
-ADICIONE UM FLUXOGRAMA DA ARQUITETURA UTILIZADA - https://excalidraw.com/
+
+
+
 <br>
-
-## API de terceiros
-
-COLOQUE O NOME, LINK E DESCRIÇÃO DAS APIS UTILIZADAS NO PROJETO
 
 ## Features
 
