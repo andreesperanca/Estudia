@@ -19,16 +19,15 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         contentIntent,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
     )
-
-    // Build the notification
     val builder = NotificationCompat.Builder(
         applicationContext,
-        applicationContext.getString(R.string.egg_notification_channel_id)
+        applicationContext.getString(R.string.estudia_notification_channel_id)
     )
-        .setSmallIcon(R.drawable.ic_study)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setColor(R.color.primaryColor)
         .setContentTitle(
             applicationContext
-                .getString(R.string.theTimeIsOver)
+                .getString(R.string.endOfCycle)
         )
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)

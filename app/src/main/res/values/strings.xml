@@ -5,11 +5,12 @@
     <string name="channelDescription">Descrição do canal.</string>
 
 
-    <string name="egg_notification_channel_id" translatable="false">egg_channel</string>
-    <string name="egg_notification_channel_name" translatable="true">Egg</string>
-    <string name="theTimeIsOver">O tempo acabou!</string>
-    <string name="notificationPauseDescription">Ok, faça uma pausa.</string>
-    <string name="notificationStudyDescription">A festa acabou, volte aos estudos.</string>
+    <string name="estudia_notification_channel_id" translatable="false">estudia_channel</string>
+    <string name="estudia_notification_channel_name" translatable="true">Estudia</string>
+
+    <string name="endOfCycle">Fim de ciclo!</string>
+    <string name="notificationPauseDescription">Hora da pausa.</string>
+    <string name="notificationStudyDescription">A pausa acabou, volte ao foco.</string>
     <string name="notificationSettingDescription">Habilitará notificações quando ciclos forem finalizados.</string>
     <string name="timerSettingDescription">O cronômetro iniciará automaticamente ciclos.</string>
     <string name="minutes">Min</string>

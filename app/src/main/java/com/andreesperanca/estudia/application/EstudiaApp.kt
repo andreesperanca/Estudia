@@ -13,8 +13,8 @@ class EstudiaApp : Application() {
     override fun onCreate() {
         super.onCreate()
         createChannel(
-            getString(R.string.egg_notification_channel_id),
-            getString(R.string.egg_notification_channel_name)
+            getString(R.string.estudia_notification_channel_id),
+            getString(R.string.estudia_notification_channel_name)
         )
     }
 
