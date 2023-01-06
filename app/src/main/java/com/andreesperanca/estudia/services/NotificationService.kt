@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat
 import com.andreesperanca.estudia.MainActivity
 import com.andreesperanca.estudia.R
 
-private const val NOTIFICATION_ID = 0
+private const val NOTIFICATION_ID = 21082000
 
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
     val contentIntent = Intent(applicationContext, MainActivity::class.java)
@@ -30,7 +30,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
                 .getString(R.string.endOfCycle)
         )
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+//        .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
 
