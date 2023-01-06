@@ -44,43 +44,69 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
   - Compose: Para escrever a UI de maneira programática com funções de composição que descrevem a forma e as dependências de dados dela. 
   - Lifecycle: Observe os ciclos de vida do Android e manipule os estados da interface do usuário após as alterações do ciclo de vida.
   - ViewModel: Gerencia o detentor de dados relacionados à interface do usuário e o ciclo de vida. Permite que os dados sobrevivam a alterações de configuração, como rotações de tela.
-  - ViewBinding: Liga os componentes do XML no Kotlin através de uma classe que garante segurança de tipo e outras vantagens.
-  - Room: Biblioteca de abstração do banco de dados SQLite que garante segurança em tempo de compilação e facilidade de uso.
   - Custom Views: View customizadas feitas do zero usando Jetpack Compose.
   - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
 - Arquitetura 
   - MVVM (View - ViewModel - Model)
-  - Comunicação da ViewModel com a View através de LiveData
+  - Comunicação da ViewModel com a View através de State Flow
   - Comunicação da ViewModel com a Model através de Kotlin Flow
   - Repositories para abstração da comunidação com a camada de dados.
-  - Interfaces que são implementadas nos repositories para facilitar os testes unitários.
+  - Interfaces que são implementadas nos Repositories para facilitar os testes unitários.
   
 ## Arquitetura
-APRESENTE A ARQUITETURA UTILIZADA NO PROJETO
 **Estudia** utiliza a arquitetura MVVM e o padrão de Repositories, que segue as [recomendações oficiais do Google](https://developer.android.com/topic/architecture).
 </br></br>
 
-
+<img alt="screenshot" width="30%" src="assets/panelControlScreen.png"/>
 
 <br>
 
 ## Features
 
-### Feature 1
-<img src="screenshots/feature-1.gif" width="25%"/>
+### Iniciar/Pausar
+<img src="assets/play_and_pause_feature - Copia.gif" width="25%"/>
 
-Texto de exemplo
+Pausar e iniciar o temporizador.
 
-### Feature 2
-<img src="screenshots/feature-2.gif" width="25%"/>
+### Notificações
+<img src="assets/end_cycle_notification_feature - Copia.gif" width="25%"/>
 
-Texto de Exemplo.
+Notificações ao finalizar ciclos.
+
+### Trocar configurações
+<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+
+Escolher entre usar ou não notificações e temporizador que iniciará ciclos automáticamente.
+
+### Trocar definições de tempo
+<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+
+Trocar difições de duração de cilos de estudo, pausa e pausa longa.
+
+### Após 4 ciclos utilizar pausas longas
+<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+
+Para respeitar o ciclo pomodoro deve fazer uma pausa longa depois de 4 ciclos de estudos.
 
 # Licença
 
 COLOQUE A LICENÇA - https://opensource.org/licenses
 
 ```xml
+
+   Copyright [2023] [André Luiz Esperança Correia]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 ```
