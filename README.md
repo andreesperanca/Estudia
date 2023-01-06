@@ -85,12 +85,12 @@ Escolher entre usar ou não notificações e temporizador que iniciará ciclos a
 Trocar difições de duração de cilos de estudo, pausa e pausa longa.
 
 ### Pausas curtas
-<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+<img src="assets/pausacurta.gif" width="25%"/>
 
 Após um ciclo de estudo você terá uma pausa curta.
 
 ### Pausas longas
-<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+<img src="assets/pausalonga.gif" width="25%"/>
 
 Após quatro ciclos de estudo consecutivos você terá uma pausa longa.
 
