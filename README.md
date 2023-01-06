@@ -37,18 +37,17 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 
 ## Tecnologias usadas e bibliotecas de código aberto
 
-- Minimum SDK level COLOQUE AQUI A APK MINIMA
+- Minimum SDK level 21
 - [Linguagem Kotlin](https://kotlinlang.org/)
 
 - Jetpack 
   - Compose: Para escrever a UI de maneira programática com funções de composição que descrevem a forma e as dependências de dados dela. 
-  - Lifecycle: Observe os ciclos de vida do Android e manipule os estados da interface do usuário após as alterações do ciclo de vida.
   - ViewModel: Gerencia o detentor de dados relacionados à interface do usuário e o ciclo de vida. Permite que os dados sobrevivam a alterações de configuração, como rotações de tela.
   - Custom Views: View customizadas feitas do zero usando Jetpack Compose.
   - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
 - Arquitetura 
-  - MVVM (View - ViewModel - Model)
+  - MVVM (Model - View - View-Model)
   - Comunicação da ViewModel com a View através de State Flow
   - Comunicação da ViewModel com a Model através de Kotlin Flow
   - Repositories para abstração da comunidação com a camada de dados.
@@ -58,7 +57,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 **Estudia** utiliza a arquitetura MVVM e o padrão de Repositories, que segue as [recomendações oficiais do Google](https://developer.android.com/topic/architecture).
 </br></br>
 
-<img alt="screenshot" width="30%" src="assets/panelControlScreen.png"/>
+<img src="assets/play_and_pause_feature - Copia.gif" width="25%"/>
 
 <br>
 
@@ -74,6 +73,11 @@ Pausar e iniciar o temporizador.
 
 Notificações ao finalizar ciclos.
 
+### Trocar de estados manualmente
+<img src="assets/change_state_feature - Copia.gif" width="25%"/>
+
+Pode trocar também entre estados manualmente.
+
 ### Trocar configurações
 <img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
 
@@ -85,19 +89,16 @@ Escolher entre usar ou não notificações e temporizador que iniciará ciclos a
 Trocar difições de duração de cilos de estudo, pausa e pausa longa.
 
 ### Pausas curtas
-<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+<img src="assets/pausacurta.gif" width="25%"/>
 
 Após um ciclo de estudo você terá uma pausa curta.
 
 ### Pausas longas
-<img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
+<img src="assets/pausalonga.gif" width="25%"/>
 
 Após quatro ciclos de estudo consecutivos você terá uma pausa longa.
 
 # Licença
-
-COLOQUE A LICENÇA - https://opensource.org/licenses
-
 ```xml
 
    Copyright [2023] [André Luiz Esperança Correia]
