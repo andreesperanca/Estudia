@@ -74,6 +74,11 @@ Pausar e iniciar o temporizador.
 
 Notificações ao finalizar ciclos.
 
+### Trocar de estados manualmente
+<img src="assets/change_state_feature - Copia.gif" width="25%"/>
+
+Pode trocar também entre estados manualmente.
+
 ### Trocar configurações
 <img src="assets/switch_settings_feature - Copia.gif" width="25%"/>
 
