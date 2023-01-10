@@ -43,6 +43,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
 - Jetpack 
   - Compose: Para escrever a UI de maneira programática com funções de composição que descrevem a forma e as dependências de dados dela. 
   - ViewModel: Gerencia o detentor de dados relacionados à interface do usuário e o ciclo de vida. Permite que os dados sobrevivam a alterações de configuração, como rotações de tela.
+  - DataStore: Para Armazenar dados de forma assíncrona, consistente e transacional.
   - Custom Views: View customizadas feitas do zero usando Jetpack Compose.
   - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
