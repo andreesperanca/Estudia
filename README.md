@@ -31,7 +31,7 @@ Aplicativo que permite utilizar o método Pomodoro focado para estudos. Feito co
 
 
 ## Download
-BADGE DA PLAYSTORE https://play.google.com/intl/en_us/badges/
+<a href='https://play.google.com/store/apps/details?id=com.andreesperanca.estudia&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="30%" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 
 Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>. Você pode ver <a href="https://www.google.com/search?q=como+instalar+um+apk+no+android">aqui</a> como instalar uma APK no seu aparelho android.
 
@@ -47,7 +47,7 @@ Ou faça o download da <a href="apk/app-debug.apk?raw=true">APK diretamente</a>.
   - Hilt: Para injeção de dependências que reduz o código boilerplate criado por injeções manuais no projeto.
 
 - Arquitetura 
-  - MVVM (Model - View - View-Model)
+  - MVVM (Model, View e View-Model)
   - Comunicação da ViewModel com a View através de State Flow
   - Comunicação da ViewModel com a Model através de Kotlin Flow
   - Repositories para abstração da comunidação com a camada de dados.
